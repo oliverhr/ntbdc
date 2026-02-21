@@ -1,0 +1,6 @@
+---
+services:
+  nautobot:
+    volumes:
+      - "./nautobot.key:/opt/nautobot/nautobot.key:ro"
+      - "./nautobot.crt:/opt/nautobot/nautobot.crt:ro"

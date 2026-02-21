@@ -1,0 +1,12 @@
+---
+services:
+  nautobot:
+    build:
+      context: "../project/"
+      dockerfile: "../docker/nautobot.dkf"
+      args:
+        NAUTOBOT_REGISTRY_URL: "${NAUTOBOT_REGISTRY_URL}"
+        NAUTOBOT_VERSION: "${NAUTOBOT_VERSION}"
+        PYTHON_VERSION: "${PYTHON_VERSION}"
+        PYTHON_SUPPORTED_RANGE: "${PYTHON_SUPPORTED_RANGE}"
+      target: "nautobot"

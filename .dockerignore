@@ -1,0 +1,26 @@
+# Docker related
+**/Dockerfile
+**/docker-compose*.yml
+**/compose.*.yml
+**/*.env
+
+*.env
+
+# Python
+**/*.pyc
+**/*.pyo
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/
+
+# Other
+docs/_build
+FAQ.md
+.git/
+.gitlab-ci.yml
+.gitignore
+.github/
+.gitlab/
+LICENSE
+**/*.log
+**/.vscode/
