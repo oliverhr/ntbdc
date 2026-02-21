@@ -31,10 +31,9 @@ CMD ["nautobot-server", "runserver", "0.0.0.0:8080", "--insecure"]
 
 RUN <<-EOT
 	apt-get update
-	apt-get upgrade -y
 	apt-get install -y libldap2-dev libsasl2-dev libssl-dev
 	apt-get autoremove -y
-	apt-get clean all
+	apt-get clean
 	rm -rf /var/lib/apt/lists/*
 	pip --no-cache-dir install --upgrade pip wheel django-auth-ldap h11
 EOT
