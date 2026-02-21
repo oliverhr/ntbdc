@@ -8,14 +8,14 @@ Based on [Nautobot Docker Compose](https://github.com/nautobot/nautobot-docker-c
 
 #### Changes
 
-The main differences are:
-
 - Renamed the invoke namespace context/configuration from
   - From `nautobot_docker_compose`
   - To `networktocode`
-- Nested some properties used as environment variables for Docker-Compose and Dockerfile
-  - `namespace.configuration().networktocode.env`
-  - All the properties on `networktocode.env` dictionary must be all caps
+  
+### Compatibility:
+
+- Nautobot Docker Image `>=2.4.18`
+- Latest tested with Nautobot `v3.0.7`
 
 ## Requirements
 

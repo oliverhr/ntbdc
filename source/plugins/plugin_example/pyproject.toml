@@ -1,15 +1,20 @@
-[tool.poetry]
+[project]
 name = "nautobot_example_plugin"
 version = "0.1.0"
 description = ""
-authors = ["Network to Code <info@networktocode.com>"]
+authors = [
+    {name = "Network to Code", email = "info@networktocode.com"}
+]
+requires-python = "==3.12.*"
 
-[tool.poetry.dependencies]
-python = ">=3.9,<3.13"
-nautobot = "^2.4.10"
-nautobot-device-onboarding = ">=3.0.0,<5.0.0"
+dependencies = [
+    "nautobot (>=2.4.18,<3.0.0)",
+    "nautobot-device-onboarding (>=3.0.0,<5.0.0)",
+]
 
-[tool.poetry.dev-dependencies]
+[tool.poetry]
+
+[tool.poetry.group.dev.dependencies]
 bandit = "*"
 black = "*"
 invoke = "*"
@@ -39,10 +44,10 @@ exclude = '''
     | dist
   )/
   | settings.py     # This is where you define files that should not be stylized by black
-                    # the root of the project
+                     # the root of the project
 )
 '''
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
