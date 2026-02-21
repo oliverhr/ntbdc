@@ -60,8 +60,8 @@ Each command can be executed with a simple `compose.sh <command>`.
   destroy          Destroy all containers and volumes.
   start            Start Nautobot and its dependencies in detached mode.
   stop             Stop Nautobot and its dependencies.
-  db-export        Export Database data to nautobot_backup.dump.
-  db-import        Import test data.
+  restore          Import test data from a .sql file.
+  dump             Export Database data to a .sql file.
 ```
 
 #### Utility

@@ -24,6 +24,8 @@ Options:
 EOT
 }
 
+source ./_util.sh
+
 opt="$1"
 if [ $# -eq 0 ] || [ $# -gt 2 ]; then
   usage
@@ -43,6 +45,7 @@ case ${opt} in
       usage
       exit 1
     fi
+    COMPOSE_FILE="$COMPOSE_DIR/compose.nautobot.build.yml"
     CMD+="build $optarg"
     ;;
   cli ) # Launch a shell inside the Nautobot container
@@ -77,7 +80,14 @@ case ${opt} in
     exit 1 ;;
 esac
 
-source ./_util.sh
+if [ "$opt" = "debug" ]; then
+    printf "%b\n" \
+        "COMMAND: docker compose --project-name $PROJECT_NAME --project-directory $COMPOSE_DIR $CMD" \
+        "COMPOSE_FILE: $COMPOSE_FILE" \
+        "COMPOSE_BUILD_ARGS: $COMPOSE_BUILD_ARGS"
+fi
+
+# ------------------------------------------------------------------------------
 docker \
   compose \
     --project-name "$PROJECT_NAME" \

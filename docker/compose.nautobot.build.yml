@@ -1,6 +1,7 @@
 ---
 services:
   nautobot:
+    image: "${NAUTOBOT_IMAGE_NAME}"
     build:
       context: "../"
       dockerfile: "docker/nautobot.dockerfile"

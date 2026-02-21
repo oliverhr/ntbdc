@@ -12,18 +12,13 @@ x-celery-base: &celery-base
     nautobot:
       condition: "service_healthy"
 
-x-healthcheck-base: &healthcheck-base
-  start_period: "1m"
-  interval: "30s"
-  timeout: "10s"
-  retries: 3
-
 configs:
   nautobot-config:
-    file: "../nautobot/config/${NAUTOBOT_CONFIG_FILE}"
+    file: "../nautobot/${NAUTOBOT_CONFIG_FILE}"
 
 services:
   nautobot:
+    <<: *nautobot-base
     command: "nautobot-server runserver 0.0.0.0:8080"
     ports:
       - "8080:8080"
@@ -32,34 +27,40 @@ services:
     configs: &configs
       - source: "nautobot-config"
         target: "/opt/nautobot/nautobot_config.py"
-        uid: "999"
-        gid: "999"
-        mode: 0440
     healthcheck:
-      <<: *healthcheck-base
-      test: "nautobot-server healthcheck"
+      start_period: 3m
+      interval: 1m
+      timeout: 30s
+      retries: 5
+      test: "nautobot-server health_check"
     depends_on:
       - "db"
       - "redis"
+
+  celery_beat:
+    <<: *celery-base
+    healthcheck:
+      start_period: 3m
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      test: "test -n $$(find /tmp/nautbot_celery_beat_heartbeat -mmin -0.1 | wc -l) || false"
+    entrypoint:
+      - "sh"
+      - "-c" # this is to evaluate the $NAUTOBOT_LOG_LEVEL from the env
+      - "nautobot-server celery beat -l $$NAUTOBOT_LOG_LEVEL"
 
   celery_worker:
     <<: *celery-base
     volumes: *vols
     configs: *configs
     healthcheck:
-      <<: *healthcheck-base
+      start_period: 3m
+      interval: 30s
+      timeout: 20s
+      retries: 5
       test: "nautobot-server celery inspect ping --destination celery@$$HOSTNAME"
     entrypoint:
       - "sh"
       - "-c" # this is to evaluate the $NAUTOBOT_LOG_LEVEL from the env
       - "nautobot-server celery worker -l $$NAUTOBOT_LOG_LEVEL --events"
-
-  celery_beat:
-    <<: *celery-base
-    healthcheck:
-      <<: *healthcheck-base
-      test: "test -n $$(find /tmp/nautbot_celery_beat_heartbeat -mmin -0.1 | wc -l) || false"
-    entrypoint:
-      - "sh"
-      - "-c" # this is to evaluate the $NAUTOBOT_LOG_LEVEL from the env
-      - "nautobot-server celery beat -l $$NAUTOBOT_LOG_LEVEL"

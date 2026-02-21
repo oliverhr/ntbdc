@@ -13,9 +13,9 @@ fi
 # -----------------------------------------------------------------------------
 # SET RUNTIME CONFIG FILE
 # -----------------------------------------------------------------------------
-CONFIG_PATH='nautobot/nautobot_config.dist.py'
+CONFIG_PATH='nautobot_config.dist.py'
 if [[ ! -f $CONFIG_PATH ]]; then
-    CONFIG_PATH='nautobot/nautobot_config.py'
+    CONFIG_PATH='nautobot_config.py'
     echo 'Using default Nautobot config file'
 else
     echo 'Using DIST Nautobot config file'
@@ -25,7 +25,7 @@ COMPOSE_ARGS["NAUTOBOT_CONFIG_FILE"]=$CONFIG_PATH
 # -----------------------------------------------------------------------------
 # SET FULLY QUALIFIED IMAGE NAME
 # -----------------------------------------------------------------------------
-IMG="yourrepo/nautobot-development"
+IMG="networktocode/nautobot"
 if [[ -v $COMPOSE_ARGS["IMAGE_NAME"] && -n "${COMPOSE_ARGS["IMAGE_NAME"]}" ]]; then
     IMG=$COMPOSE_ARGS["IMAGE_NAME"]
     unset COMPOSE_ARGS["IMAGE_NAME"]
@@ -36,6 +36,7 @@ if [[ -v $COMPOSE_ARGS["TAG"] && -n "${COMPOSE_ARGS["TAG"]}" ]]; then
     $TAG=$COMPOSE_ARGS["TAG"]
     unset COMPOSE_ARGS["TAG"]
 fi
+
 COMPOSE_ARGS["NAUTOBOT_IMAGE_NAME"]="$IMG:$TAG"
 
 # -----------------------------------------------------------------------------
@@ -55,9 +56,6 @@ COMPOSE_FILE=$(IFS=":"; echo "${COMPOSE_FILES[*]}")
 # -----------------------------------------------------------------------------
 export COMPOSE_FILE
 export COMPOSE_BUILD_ARGS
-
-echo "COMPOSE_FILE: $COMPOSE_FILE"
-echo "COMPOSE_BUILD_ARGS: $COMPOSE_BUILD_ARGS"
 
 echo ----------------------------- Configuration ------------------------------
 echo PYTHON_SUPPORTED_RANGE: "$PYTHON_SUPPORTED_RANGE"
