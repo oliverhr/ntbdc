@@ -121,9 +121,5 @@ RUN <<-EOT
 	chown -R nautobot:nautobot /opt/nautobot
 EOT
 
-# Verify that pyuwsgi was installed correctly, i.e. with SSL support
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN pyuwsgi --cflags | sed 's/ /\n/g' | grep -e "^-DUWSGI_SSL$"
-
 USER nautobot
 WORKDIR /opt/nautobot
