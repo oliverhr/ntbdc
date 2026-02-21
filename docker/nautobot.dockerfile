@@ -89,12 +89,12 @@ EOT
 # -----------------------------------------------------------------------------
 # Plugins
 # -----------------------------------------------------------------------------
-WORKDIR /source/plugins
-COPY plugins/ .
+WORKDIR /source
+COPY ./source/ .
 
 RUN <<-EOT
-	for plugin in ./*; do
-		cd $plugin;
+	for plugin in ./plugins/*; do
+		cd $plugin
 		poetry build;
 		cp dist/*.whl /tmp/dist;
 	done

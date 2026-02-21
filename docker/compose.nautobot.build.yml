@@ -2,8 +2,8 @@
 services:
   nautobot:
     build:
-      context: "../project/"
-      dockerfile: "../docker/nautobot.dkf"
+      context: "../"
+      dockerfile: "docker/nautobot.dockerfile"
       args:
         NAUTOBOT_REGISTRY_URL: "${NAUTOBOT_REGISTRY_URL}"
         NAUTOBOT_VERSION: "${NAUTOBOT_VERSION}"
