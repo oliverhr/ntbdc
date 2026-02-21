@@ -1,7 +1,7 @@
 ---
 services:
   redis:
-    image: "${PUBLIC_REGISTRY_URL}/redis:6-alpine"
+    image: "${PUBLIC_REGISTRY_URL}/redis:8-alpine"
     env_file:
       - "settings.env"
       - "credentials.env"
