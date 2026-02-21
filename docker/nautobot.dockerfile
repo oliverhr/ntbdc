@@ -13,9 +13,8 @@ USER root
 
 RUN <<-EOT
 	apt-get update
-	apt-get upgrade -y
 	apt-get autoremove -y
-	apt-get clean all
+	apt-get clean
 	rm -rf /var/lib/apt/lists/*
 	pip --no-cache-dir install --upgrade pip wheel
 EOT
