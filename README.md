@@ -1,4 +1,4 @@
-# nautobot-docker-compose
+# Nautobot - Jobs and Plugins Development Environment
 
 Based on [Nautobot Docker Compose](https://github.com/nautobot/nautobot-docker-compose) project, so most of the docs and files are taken from there.
 
@@ -134,7 +134,6 @@ Superuser created successfully.
 ...
 
 
-
 ## References
 
 - Docker Hub Network to Code profile
@@ -144,4 +143,3 @@ Superuser created successfully.
   - https://hub.docker.com/r/networktocode/nautobot-dev
 - Nautobot Development guide:
   - https://docs.nautobot.com/projects/core/en/stable/development/core/getting-started/
-
