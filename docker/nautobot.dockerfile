@@ -93,7 +93,7 @@ COPY ./source/ .
 
 RUN <<-EOT
 	for plugin in ./plugins/*; do
-		cd $plugin
+		cd "$plugin"
 		poetry build;
 		cp dist/*.whl /tmp/dist;
 	done
