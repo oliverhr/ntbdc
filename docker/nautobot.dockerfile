@@ -91,10 +91,12 @@ WORKDIR /source
 COPY ./source/ .
 
 RUN <<-EOT
+	mkdir -p /tmp/dist
 	for plugin in ./plugins/*; do
-		cd "$plugin"
-		poetry build;
-		cp dist/*.whl /tmp/dist;
+		if [ -d "$plugin" ]; then
+			( cd "$plugin" && { [ -f "README.md" ] || touch "README.md"; poetry build; } )
+			find "$plugin/dist" -maxdepth 1 -name '*.whl' -exec cp -- '{}' /tmp/dist/ \;
+		fi
 	done
 EOT
 
